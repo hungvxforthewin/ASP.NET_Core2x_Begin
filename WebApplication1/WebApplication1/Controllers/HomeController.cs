@@ -19,5 +19,18 @@ namespace WebApplication1.Controllers
             model.Message = "Hello i from Model";
             return View(model);
         }
+        [Route("check-hack")]
+        public string Hacked()
+        {
+            return "Web đã bị tấn công";
+        }
+
+        [Route("khach-hang/vip/{id?}")]
+        public string vip(int id)
+        {
+            var idNew = id;
+            string name = HttpContext.Request.Query["name"];
+            return "khách hàng vip số " + idNew + " có tên là: " + name;
+        }
     }
 }

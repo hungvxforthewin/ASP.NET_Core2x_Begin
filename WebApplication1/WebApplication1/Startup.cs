@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -45,10 +47,48 @@ namespace WebApplication1
             //});
             // router default
             app.UseMvcWithDefaultRoute();
-            //app.UseMvc(router =>
-            //{
-            //    router.MapRoute("default", "{controller=Home}/{action=index}/{id?}");
-            //});
+            app.UseMvc(router =>
+            {
+                router.MapRoute("trang-chu", "trang-chu", new
+                {
+                    Controller = "Home",
+                    Action = "Index"
+                });
+                // new controller
+                //router.MapRoute("product", "{controller=Product}/{action=index}/{id:int?}");
+
+                //router.MapRoute("test01", "product/{id:int}", new
+                //{
+                //    Controller = "Product",
+                //    Action = "Index"
+                //});
+                router.MapRoute("test02", "product/tranh-name-action/{name:alpha}", new
+                {
+                    Controller = "Product",
+                    Action = "Version"
+                });
+                //router.MapRoute("test03", "{controller}/{action}/{id}", new
+                //{
+                //    Controller = "Product",
+                //    Action = "Index"
+                //}, new { 
+                //    id = new IntRouteConstraint()
+                //}); 
+                router.MapRoute("test03", "product/{id}", new
+                {
+                    Controller = "Product",
+                    Action = "Index"
+                }, new { 
+                    id = new IntRouteConstraint()
+                });
+
+                // router default
+                router.MapRoute("default", "{controller=Home}/{action=index}/{id?}");
+            });
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("false");
+            });
         }
     }
 }
