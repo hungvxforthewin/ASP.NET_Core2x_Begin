@@ -1,0 +1,13 @@
+﻿@model List<DIServices.Dtos.ProductViewModel>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DI</title>
+</head>
+<body>
+    <p>List Products</p>
+    @foreach (var item in Model)
+    {
+        <p>@item.ID: @item.Name</p>
+    }
+</body>
+</html>
